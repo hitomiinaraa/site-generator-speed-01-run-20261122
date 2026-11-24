@@ -1,14 +1,13 @@
-// A fast static-site generator, a drop-in for makefun-site 1.0.0: the harness runs `node /bot/main.ts` (node22). It reads every case from /input/cases.json (a JSON
-// array of {id, input}), answers each one alone with run() from solve.js, and writes /output/answers.json: a JSON
-// array of the answers, one per case and in the cases' order. An entry keeps this driver and replaces solve.js with a
-// faster module whose run(input) returns the same answer for every input. Outside a container MAKEFUN_INPUT_DIR and MAKEFUN_OUTPUT_DIR stand in for /input and /output.
+// main.ts — the driver the harness runs (node22). It reads every case from /input/cases.json,
+// answers each one alone with run() from solve.js, and writes /output/answers.json: a JSON array
+// of the answers, one per case and in the cases' order. Outside a container MAKEFUN_INPUT_DIR
+// and MAKEFUN_OUTPUT_DIR stand in for /input and /output.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { setFlagsFromString } from 'node:v8';
 
-// V8's incremental marking off, set before solve.js is imported so all of its work runs under it (the rules: the house
-// baseline runs with --no-incremental-marking, and an entry may tune V8's flags too).
+// V8's incremental marking off, set before solve.js is imported so all of its work runs under it.
 setFlagsFromString('--no-incremental-marking');
 
 /** solve.js, imported by its URL (a .js module carries no types) and typed by its contract. */
