@@ -1,3 +1,4 @@
+// Revision pass: one line at the top, the driver untouched below.
 // main.ts — the driver the harness runs (node22). It reads every case from /input/cases.json,
 // answers each one alone with run() from solve.js, and writes /output/answers.json: a JSON array
 // of the answers, one per case and in the cases' order. Outside a container MAKEFUN_INPUT_DIR
